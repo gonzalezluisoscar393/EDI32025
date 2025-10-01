@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Biblioteca.Abstactions\Biblioteca.Abstactions.csproj" />
+    <ProjectReference Include="..\Biblioteca.Enums\Biblioteca.Enums.csproj" />
   </ItemGroup>
 
 </Project>

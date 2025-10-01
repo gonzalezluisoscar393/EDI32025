@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Biblioteca.Abstactions\Biblioteca.Abstactions.csproj" />
+    <ProjectReference Include="..\Biblioteca.Repository\Biblioteca.Repository.csproj" />
   </ItemGroup>
 
 </Project>
