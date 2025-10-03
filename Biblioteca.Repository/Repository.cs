@@ -1,9 +1,4 @@
 ﻿using Biblioteca.Abstactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteca.Repository
 {
@@ -19,22 +14,22 @@ namespace Biblioteca.Repository
         }
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _db.Delete(id);
         }
 
         public IList<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.GetAll();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.GetById(id);
         }
 
         public T Save(T entity)
         {
-            throw new NotImplementedException();
+            return _db.Save(entity);
         }
     }
 }

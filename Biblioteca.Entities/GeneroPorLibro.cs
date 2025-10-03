@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Biblioteca.Abstactions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biblioteca.Entities
 {
-    public class GeneroPorLibro
+    public class GeneroPorLibro : IEntidad
     {
         public int Id { get; set; }
         [ForeignKey(nameof(Genero))]

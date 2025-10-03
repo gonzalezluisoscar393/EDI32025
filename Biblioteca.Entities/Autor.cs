@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteca.Abstactions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteca.Entities
 {
-    public class Autor
+    public class Autor: IEntidad
     {
         public Autor()
         {

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Biblioteca.Abstactions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biblioteca.Entities
 {
-    public class Libro
+    public class Libro : IEntidad
     {
         public Libro()
         {

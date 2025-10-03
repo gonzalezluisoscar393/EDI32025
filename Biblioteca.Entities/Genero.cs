@@ -1,6 +1,8 @@
-﻿namespace Biblioteca.Entities
+﻿using Biblioteca.Abstactions;
+
+namespace Biblioteca.Entities
 {
-    public class Genero
+    public class Genero : IEntidad
     {
         public Genero()
         {

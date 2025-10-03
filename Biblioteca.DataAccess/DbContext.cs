@@ -1,14 +1,9 @@
 ﻿using Biblioteca.Abstactions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteca.DataAccess
 {
-    public class DbContext<T> : IDbOperation<T> where T : class
+    public class DbContext<T> : IDbContext<T> where T : class, IEntidad
     {
         DbSet<T> _Items;
         DbDataAccess _ctx;
@@ -20,7 +15,9 @@ namespace Biblioteca.DataAccess
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = _Items.FirstOrDefault(i => i.Id == id);
+            if (entity != null) { _Items.Remove(entity); }
+            _ctx.SaveChanges();
         }
 
         public IList<T> GetAll()
@@ -30,12 +27,23 @@ namespace Biblioteca.DataAccess
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _Items.FirstOrDefault(i => i.Id == id);
         }
 
         public T Save(T entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id.Equals(0))
+            {                
+                _Items.Add(entity);
+            }
+            else
+            {
+                var entityDb = GetById(entity.Id);
+                _ctx.Entry(entityDb).State = EntityState.Detached;
+                _Items.Update(entity);
+            }
+            _ctx.SaveChanges();
+            return entity;
         }
     }
 }
