@@ -20,7 +20,7 @@ builder.Services.AddDbContext<DbDataAccess>(options =>
             o => o.MigrationsAssembly("Biblioteca.WebApi"));
     options.UseLazyLoadingProxies();
 });
-
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped(typeof(IStringServices), typeof(StringServices));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IApplication<>), typeof(Application<>));

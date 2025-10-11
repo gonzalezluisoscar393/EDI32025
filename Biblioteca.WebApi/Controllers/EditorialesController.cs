@@ -1,27 +1,25 @@
 ﻿using AutoMapper;
 using Biblioteca.Application;
-using Biblioteca.Application.Dtos.Autor;
 using Biblioteca.Application.Dtos.Editorial;
 using Biblioteca.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace Biblioteca.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AutoresController : ControllerBase
+    public class EditorialesController : ControllerBase
     {
-        private readonly ILogger<AutoresController> _logger;
-        private readonly IApplication<Autor> _autor;
+        private readonly ILogger<EditorialesController> _logger;
+        private readonly IApplication<Editorial> _editorial;
         private readonly IMapper _mapper;
-        public AutoresController(
-            ILogger<AutoresController> logger
-            , IApplication<Autor> autor
+        public EditorialesController(
+            ILogger<EditorialesController> logger
+            , IApplication<Editorial> editorial
             , IMapper mapper)
         {
             _logger = logger;
-            _autor = autor;
+            _editorial = editorial;
             _mapper = mapper;
         }
 
@@ -29,7 +27,7 @@ namespace Biblioteca.WebApi.Controllers
         [Route("All")]
         public async Task<IActionResult> All()
         {
-            return Ok(_mapper.Map<IList<AutorResponseDto>>(_autor.GetAll()));
+            return Ok(_mapper.Map<IList<EditorialResponseDto>>(_editorial.GetAll()));
         }
 
         [HttpGet]
@@ -40,36 +38,36 @@ namespace Biblioteca.WebApi.Controllers
             {
                 return BadRequest();
             }
-            Autor autor = _autor.GetById(Id.Value);
-            if (autor is null)
+            Editorial editorial = _editorial.GetById(Id.Value);
+            if (editorial is null)
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<AutorResponseDto>(autor));
+            return Ok(_mapper.Map<EditorialResponseDto>(editorial));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear(AutorRequestDto autorRequestDto)
+        public async Task<IActionResult> Crear(EditorialRequestDto editorialRequestDto)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             { return BadRequest(); }
-            var autor = _mapper.Map<Autor>(autorRequestDto);
-            _autor.Save(autor);
-            return Ok(autor.Id);
+            var editorial = _mapper.Map<Editorial>(editorialRequestDto);
+            _editorial.Save(editorial);
+            return Ok(editorial.Id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Editar(int? Id, AutorRequestDto autorRequestDto)
+        public async Task<IActionResult> Editar(int? Id, EditorialRequestDto editorialRequestDto)
         {
             if (!Id.HasValue)
             { return BadRequest(); }
             if (!ModelState.IsValid)
             { return BadRequest(); }
-            Autor autorBack = _autor.GetById(Id.Value);
-            if (autorBack is null)
+            var editorial = _editorial.GetById(Id.Value);
+            if (editorial is null)
             { return NotFound(); }
-            autorBack = _mapper.Map<Autor>(autorRequestDto);
-            _autor.Save(autorBack);
+            editorial = _mapper.Map<Editorial>(editorialRequestDto);
+            _editorial.Save(editorial);
             return Ok();
         }
 
@@ -80,10 +78,10 @@ namespace Biblioteca.WebApi.Controllers
             { return BadRequest(); }
             if (!ModelState.IsValid)
             { return BadRequest(); }
-            Autor autorBack = _autor.GetById(Id.Value);
-            if (autorBack is null)
+            var editorial = _editorial.GetById(Id.Value);
+            if (editorial is null)
             { return NotFound(); }
-            _autor.Delete(autorBack.Id);
+            _editorial.Delete(editorial.Id);
             return Ok();
         }
     }
