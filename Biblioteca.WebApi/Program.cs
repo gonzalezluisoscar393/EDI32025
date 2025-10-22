@@ -1,8 +1,10 @@
 using Biblioteca.Abstactions;
 using Biblioteca.Application;
 using Biblioteca.DataAccess;
+using Biblioteca.Entities.MicrosoftIdentity;
 using Biblioteca.Repository;
 using Biblioteca.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,15 @@ builder.Services.AddDbContext<DbDataAccess>(options =>
             o => o.MigrationsAssembly("Biblioteca.WebApi"));
     options.UseLazyLoadingProxies();
 });
+
+builder.Services.AddIdentity<User, Role>(
+    options => options.SignIn.RequireConfirmedAccount = true).
+    AddDefaultTokenProviders().
+    AddEntityFrameworkStores<DbDataAccess>().
+    AddSignInManager<SignInManager<User>>().
+    AddRoleManager<RoleManager<Role>>().
+    AddUserManager<UserManager<User>>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped(typeof(IStringServices), typeof(StringServices));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -36,9 +47,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
