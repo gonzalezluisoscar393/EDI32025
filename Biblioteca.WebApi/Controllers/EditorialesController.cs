@@ -2,10 +2,13 @@
 using Biblioteca.Application;
 using Biblioteca.Application.Dtos.Editorial;
 using Biblioteca.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.WebApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class EditorialesController : ControllerBase
